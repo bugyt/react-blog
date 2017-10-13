@@ -1,0 +1,23 @@
+{
+  "name": "react-blog",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:7777",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "helmet": "^3.8.2",
+    "mongodb": "^2.2.33",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.14"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
