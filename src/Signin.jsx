@@ -1,5 +1,5 @@
-import React from 'react';
-import axios from 'axios';
+import React from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import SigninForm from "./SigninForm";
 
@@ -7,38 +7,46 @@ var isLoggedIn = false;
 class Signin extends React.Component {
     constructor(props) {
         super(props);
-        this.handleEmailChange = this.handleEmailChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.signIn = this.signIn.bind(this);
-
+        // set the initial component state
         this.state = {
-            email: "",
-            password: ""
+            errors: {},
+            user: {
+                email: "",
+                password: ""
+            }
         };
+
+        this.processForm = this.processForm.bind(this);
+        this.changeUser = this.changeUser.bind(this);
     }
     render() {
         return (
-            <SigninForm onSubmit={this.signIn}
-                        onEmailChange={this.handleEmailChange}
-                        onPasswordChange={this.handlePasswordChange} />
+            <SigninForm
+                onSubmit={this.processForm}
+                onChange={this.changeUser}
+                errors={this.state.errors}
+                user={this.state.user}
+            />
         );
     }
 
-    handleEmailChange(e) {
-        this.setState({ email: e.target.value });
-    }
-    handlePasswordChange(e) {
-        this.setState({ password: e.target.value });
+    changeUser(event) {
+        const field = event.target.name;
+        const user = this.state.user;
+        user[field] = event.target.value;
+        this.setState({
+            user
+        });
     }
 
-    signIn(event) {
+    processForm(event) {
         event.preventDefault();
-        
+
         console.log(
             "Email address is " +
-                this.state.email +
+                this.state.user.email +
                 " Password is " +
-                this.state.password
+                this.state.user.password
         );
 
         if (window.fetch) {
@@ -50,8 +58,8 @@ class Signin extends React.Component {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    email: this.state.email,
-                    password: this.state.password
+                    email: this.state.user.email,
+                    password: this.state.user.password
                 })
             })
                 .then(
@@ -77,8 +85,8 @@ class Signin extends React.Component {
         } else {
             axios
                 .post("/signin", {
-                    email: this.state.email,
-                    password: this.state.password
+                    email: this.user.state.email,
+                    password: this.user.state.password
                 })
                 .then(function(response) {
                     console.log(response);

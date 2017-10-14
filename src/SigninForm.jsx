@@ -1,10 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 class SigninForm extends React.Component {
     render() {
-        console.log(this.props.onSubmit);
-
+        
         return (
             <div>
                 <form className="form-signin" onSubmit={this.props.onSubmit}>
@@ -14,11 +14,13 @@ class SigninForm extends React.Component {
                     </label>
                     <input
                         type="email"
+                        name="email"
                         id="inputEmail"
                         className="form-control"
                         placeholder="Email address"
                         aria-describedby="emailHelp"
-                        onChange={this.props.onEmailChange}
+                        onChange={this.props.onChange}
+
                         required
                         autoFocus
                     />
@@ -27,10 +29,11 @@ class SigninForm extends React.Component {
                     </label>
                     <input
                         type="password"
+                        name="password"
                         id="inputPassword"
                         className="form-control"
                         placeholder="Password"
-                        onChange={this.props.onPasswordChange}
+                        onChange={this.props.onChange}
                         required
                     />
 
@@ -43,7 +46,6 @@ class SigninForm extends React.Component {
                     <button
                         className="btn btn-lg btn-primary btn-block"
                         type="submit"
-                        // onClick={this.signIn}
                     >
                         Sign in
                     </button>
@@ -56,5 +58,13 @@ class SigninForm extends React.Component {
         );
     }
 }
+
+SigninForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
+};
+
 
 export default SigninForm;

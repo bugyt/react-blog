@@ -1,99 +1,53 @@
-import React from 'react';
-import axios from 'axios';
+import React from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import SignupForm from "./SignupForm";
 
 class Signup extends React.Component {
+  constructor(props) {
+    super(props);
+    this.changeUser = this.changeUser.bind(this);
+    this.processForm = this.processForm.bind(this);
+    this.state = {
+      errors: {},
+      user: {
+        email: "",
+        password: "",
+        name: ""
+      }
+    };
+  }
+
   render() {
     return (
       <div>
-        <form className="form-signin">
-          <h2 className="form-signin-heading">Please sign up</h2>
-          <label htmlFor="inputName" className="sr-only">
-            Name
-          </label>
-          <input
-            type="name"
-            onChange={this.handleNameChange}
-            id="inputName"
-            className="form-control"
-            placeholder="Name"
-            required
-            autoFocus
-          />
-          <label htmlFor="inputEmail" className="sr-only">
-            Email address
-          </label>
-          <input
-            type="email"
-            onChange={this.handleEmailChange}
-            id="inputEmail"
-            className="form-control"
-            placeholder="Email address"
-            required
-          />
-          <label htmlFor="inputPassword" className="sr-only">
-            Password
-          </label>
-          <input
-            type="password"
-            onChange={this.handlePasswordChange}
-            id="inputPassword"
-            className="form-control"
-            placeholder="Password"
-            required
-          />
-
-          <button
-            className="btn btn-lg btn-primary btn-block"
-            onClick={this.signUp}
-            type="button"
-          >
-            Sign up
-          </button>
-          <small id="emailHelp" className="form-text text-muted">
-            We'll never share your email with anyone else.
-          </small>
-        </form>
-        <div>
-          <Link to="/signin">{"Signin"}</Link>
-        </div>
+        <SignupForm
+          onSubmit={this.processForm}
+          onChange={this.changeUser}
+          errors={this.state.errors}
+          user={this.state.user}
+        />
       </div>
     );
   }
 
-  constructor(props) {
-    super(props);
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.state = {
-      name: "",
-      email: "",
-      password: ""
-    };
-    this.signUp = this.signUp.bind(this);
-    console.log("constructor");
+  changeUser(e) {
+    const field = e.target.name;
+    const user = this.state.user;
+    user[field] = e.target.value;
+    this.setState({
+      user
+    });
   }
 
-  handleNameChange(e) {
-    this.setState({ name: e.target.value });
-    console.log(this.state.name);
-  }
-  handleEmailChange(e) {
-    this.setState({ email: e.target.value });
-  }
-  handlePasswordChange(e) {
-    this.setState({ password: e.target.value });
-  }
+  processForm(event) {
+    event.preventDefault();
 
-  signUp() {
-    var that = this;
-    console.log(this);
     console.log(
-      "Email address is " +
-        this.state.name +
+      "Signup Process Form : Email address is " +
+        this.state.user.name +
         " Password is " +
-        this.state.password
+        this.state.user.password
     );
 
     if (window.fetch) {
@@ -105,9 +59,9 @@ class Signup extends React.Component {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          name: this.state.name,
-          email: this.state.email,
-          password: this.state.password
+          name: this.state.user.name,
+          email: this.state.user.email,
+          password: this.state.user.password
         })
       })
         .then(function(response) {
@@ -128,9 +82,9 @@ class Signup extends React.Component {
     } else {
       axios
         .post("/signup", {
-          name: this.state.name,
-          email: this.state.email,
-          password: this.state.password
+          name: this.state.user.name,
+          email: this.state.user.email,
+          password: this.state.user.password
         })
         .then(function(response) {
           console.log(response);

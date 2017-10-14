@@ -15,7 +15,7 @@ class Navigation extends React.Component {
         key="signin"
         className={
           "nav-item " +
-          (this.props.location.pathname === "/signin" ? "active" : "")
+          (this.props=== "/signin" ? "active" : "")
         }
       >
         <Link to="/signin" className="nav-link">
@@ -28,7 +28,7 @@ class Navigation extends React.Component {
       key="signup"
         className={
           "nav-item " +
-          (this.props.location.pathname === "/signup" ? "active" : "")
+          (this.props === "/signup" ? "active" : "")
         }
       >
         <Link to="/signup" className="nav-link">
@@ -41,7 +41,7 @@ class Navigation extends React.Component {
       key="signout"
         className={
           "nav-item " +
-          (this.props.location.pathname === "/signout" ? "active" : "")
+          (this.props === "/signout" ? "active" : "")
         }
       >
         <Link to="/signout" className="nav-link">
@@ -57,7 +57,7 @@ class Navigation extends React.Component {
           key="home"
             className={
               "nav-item " +
-              (this.props.location.pathname === "/" ? "active" : "")
+              (this.props=== "/" ? "active" : "")
             }
           >
             <Link to="/" className="nav-link">

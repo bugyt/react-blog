@@ -1,16 +1,34 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 // import logo from "./logo.svg";
 import Footer from "./Footer";
-import Home from "./Home";
 import Header from "./Header";
-import Signin from "./Signin";
-import Signup from "./Signup";
+import routes from "./router/routes.jsx";
+import RouteWithSubRoutes from './router/RouteWithSubRoutes'
 
 
+class App extends Component {
+  render() {
+    console.log(routes);
+    return (
+      
+        <div>
+          
+          <Route path="/" component={Header} />
+          <div className="container">
 
-import "./css/App.css";
-
+            {routes.map((route, i) => (
+              <RouteWithSubRoutes key={i} {...route} />
+            ))}
+            <Route path="/" component={Footer} />
+          </div>
+          
+        </div>
+      
+    );
+  }
+}
+/*
 class App extends Component {
   render() {
     return (
@@ -33,5 +51,9 @@ class App extends Component {
     );
   }
 }
+*/
+// App.propTypes = {
+//   children: PropTypes.object.isRequired
+// };
 
 export default App;
