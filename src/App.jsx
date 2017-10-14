@@ -4,27 +4,20 @@ import { Route } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
 import routes from "./router/routes.jsx";
-import RouteWithSubRoutes from './router/RouteWithSubRoutes'
-
+import RouteWithSubRoutes from "./router/RouteWithSubRoutes";
 
 class App extends Component {
+  
   render() {
     console.log(routes);
     return (
-      
-        <div>
-          
-          <Route path="/" component={Header} />
-          <div className="container">
-
-            {routes.map((route, i) => (
-              <RouteWithSubRoutes key={i} {...route} />
-            ))}
-            <Route path="/" component={Footer} />
-          </div>
-          
+      <div>
+        <Route path="/" component={Header} />
+        <div className="container">
+          {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
+          <Route path="/" component={Footer} />
         </div>
-      
+      </div>
     );
   }
 }
